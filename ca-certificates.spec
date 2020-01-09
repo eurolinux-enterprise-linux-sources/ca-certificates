@@ -35,7 +35,7 @@ Name: ca-certificates
 # to have increasing version numbers. However, the new scheme will work, 
 # because all future versions will start with 2013 or larger.)
 
-Version: 2017.2.14
+Version: 2017.2.20
 # On RHEL 7.x, please keep the release version >= 70
 # When rebasing on Y-Stream (7.y), use 71, 72, 73, ...
 # When rebasing on Z-Stream (7.y.z), use 70.0, 70.1, 70.2, ...
@@ -358,6 +358,16 @@ fi
 
 
 %changelog
+* Wed Nov 29 2017 Kai Engert <kaie@redhat.com> - 2017.2.20-71
+- Update to CKBI 2.20 from NSS 3.34.1
+
+* Thu Oct 26 2017 Kai Engert <kaie@redhat.com> - 2017.2.18-71
+- Update to CKBI 2.18 (pre-release snapshot)
+
+* Tue Sep 26 2017 Kai Engert <kaie@redhat.com> - 2017.2.16-71
+- Update to CKBI 2.16 from NSS 3.32. In addition to removals/additions,
+  Mozilla removed code signing trust from all CAs (rhbz#1472933)
+
 * Fri Apr 28 2017 Kai Engert <kaie@redhat.com> - 2017.2.14-71
 - Update to CKBI 2.14 from NSS 3.30.2
 
