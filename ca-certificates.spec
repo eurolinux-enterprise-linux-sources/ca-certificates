@@ -47,7 +47,7 @@ Name: ca-certificates
 # to have increasing version numbers. However, the new scheme will work, 
 # because all future versions will start with 2013 or larger.)
 
-Version: 2015.2.4
+Version: 2015.2.6
 # On RHEL 6.x, please keep the release version < 70
 # When rebasing on Y-Stream (6.y), use 65.1, 65.2, 65.3, ...
 # When rebasing on Z-Stream (6.y.z), use 65.0, 65.0.1, 65.0.2, ...
@@ -497,17 +497,19 @@ fi
 
 
 %changelog
-* Thu Apr 23 2015 Kai Engert <kaie@redhat.com> - 2015.2.4-65.0.1
+* Fri Jan 22 2016 Kai Engert <kaie@redhat.com> - 2015.2.6-65.0.1
+- Update to CKBI 2.6 from NSS 3.21 with legacy modifications.
+
+* Thu Apr 23 2015 Kai Engert <kaie@redhat.com> - 2015.2.4-65.1
 - Update to CKBI 2.4 from NSS 3.18.1 with legacy modifications.
 
-* Wed Apr 15 2015 Kai Engert <kaie@redhat.com> - 2015.2.3-65.0.2
-- Add an alternative version of the "Thawte Premium Server CA" root,
-  which carries a SHA1-RSA signature, to allow OpenJDK to verify applets
-  which contain that version of the root certificate (rhbz#1138230).
-  This change doesn't add trust for another key, because both versions
-  of the certificate use the same public key.
+* Tue Apr 14 2015 Kai Engert <kaie@redhat.com> - 2015.2.3-65.3
+- Fix a typo in the ca-legacy manual page (rhbz#1208850)
 
-* Tue Apr 14 2015 Kai Engert <kaie@redhat.com> - 2015.2.3-65.0.1
+* Wed Apr 01 2015 Kai Engert <kaie@redhat.com> - 2015.2.3-65.2
+- Include the legacy CA certificates in the classic TLS bundle, too.
+
+* Tue Mar 31 2015 Kai Engert <kaie@redhat.com> - 2015.2.3-65.1
 - Update to CKBI 2.3 from NSS 3.18 with legacy modifications.
 - Add a patch to the source RPM that documents the changes from the
   upstream version.
@@ -515,6 +517,13 @@ fi
   configuration file.
 - The new scriptlets require the coreutils package.
 - Remove the obsolete blacklist.txt file.
+
+* Thu Dec 04 2014 Kai Engert <kaie@redhat.com> - 2014.1.98-65.2
+- Add an alternative version of the "Thawte Premium Server CA" root,
+  which carries a SHA1-RSA signature, to allow OpenJDK to verify applets
+  which contain that version of the root certificate (rhbz#1138230).
+  This change doesn't add trust for another key, because both versions
+  of the certificate use the same public key.
 
 * Mon Jul 14 2014 Kai Engert <kaie@redhat.com> - 2014.1.98-65.1
 - Rebuild, ensure y-stream uses larger release number than z-stream.
