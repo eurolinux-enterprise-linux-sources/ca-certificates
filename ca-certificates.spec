@@ -47,11 +47,11 @@ Name: ca-certificates
 # to have increasing version numbers. However, the new scheme will work, 
 # because all future versions will start with 2013 or larger.)
 
-Version: 2017.2.14
+Version: 2018.2.22
 # On RHEL 6.x, please keep the release version < 70
 # When rebasing on Y-Stream (6.y), use 65.1, 65.2, 65.3, ...
 # When rebasing on Z-Stream (6.y.z), use 65.0, 65.0.1, 65.0.2, ...
-Release: 65.0.1%{?dist}
+Release: 65.1%{?dist}
 License: Public Domain
 
 Group: System Environment/Base
@@ -505,10 +505,21 @@ fi
 
 
 %changelog
-* Fri Apr 28 2017 Kai Engert <kaie@redhat.com> - 2017.2.14-65.0.1
+* Wed Feb 28 2018 Kai Engert <kaie@redhat.com> - 2018.2.22-65.1
+- Update to CKBI 2.22 from NSS 3.35 with legacy modifications.
+
+* Mon Dec 18 2017 Kai Engert <kaie@redhat.com> - 2017.2.20-65.1
+- Update to CKBI 2.20 from NSS 3.34.1 with legacy modifications.
+  In the original upstream release, Mozilla.org removed all trust for
+  the code signing usage. As part of the default legacy configuration,
+  this package retains code signing trust for all CAs that are still
+  trusted for the server authentication usage.
+  The ca-legacy disable configuration disables all code signing trust.
+
+* Fri Apr 28 2017 Kai Engert <kaie@redhat.com> - 2017.2.14-65.1
 - Update to CKBI 2.14 from NSS 3.28.5 with legacy modifications.
 
-* Thu Feb 23 2017 Kai Engert <kaie@redhat.com> - 2017.2.11-65.0
+* Thu Feb 23 2017 Kai Engert <kaie@redhat.com> - 2017.2.11-65.1
 - Update to CKBI 2.11 from NSS 3.28.1 with legacy modifications.
 
 * Tue Nov 01 2016 Kai Engert <kaie@redhat.com> - 2016.2.10-65.4
