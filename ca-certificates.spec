@@ -47,11 +47,11 @@ Name: ca-certificates
 # to have increasing version numbers. However, the new scheme will work, 
 # because all future versions will start with 2013 or larger.)
 
-Version: 2016.2.10
+Version: 2017.2.14
 # On RHEL 6.x, please keep the release version < 70
 # When rebasing on Y-Stream (6.y), use 65.1, 65.2, 65.3, ...
 # When rebasing on Z-Stream (6.y.z), use 65.0, 65.0.1, 65.0.2, ...
-Release: 65.4%{?dist}
+Release: 65.0.1%{?dist}
 License: Public Domain
 
 Group: System Environment/Base
@@ -505,6 +505,12 @@ fi
 
 
 %changelog
+* Fri Apr 28 2017 Kai Engert <kaie@redhat.com> - 2017.2.14-65.0.1
+- Update to CKBI 2.14 from NSS 3.28.5 with legacy modifications.
+
+* Thu Feb 23 2017 Kai Engert <kaie@redhat.com> - 2017.2.11-65.0
+- Update to CKBI 2.11 from NSS 3.28.1 with legacy modifications.
+
 * Tue Nov 01 2016 Kai Engert <kaie@redhat.com> - 2016.2.10-65.4
 - fix a typo in the manual page
 
