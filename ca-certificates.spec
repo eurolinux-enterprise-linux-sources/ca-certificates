@@ -47,11 +47,11 @@ Name: ca-certificates
 # to have increasing version numbers. However, the new scheme will work, 
 # because all future versions will start with 2013 or larger.)
 
-Version: 2015.2.6
+Version: 2016.2.10
 # On RHEL 6.x, please keep the release version < 70
 # When rebasing on Y-Stream (6.y), use 65.1, 65.2, 65.3, ...
 # When rebasing on Z-Stream (6.y.z), use 65.0, 65.0.1, 65.0.2, ...
-Release: 65.0.1%{?dist}
+Release: 65.4%{?dist}
 License: Public Domain
 
 Group: System Environment/Base
@@ -179,40 +179,48 @@ EOF
    fi
  done
 
- for f in certs/legacy-default/*.crt; do 
-   echo "processing $f"
-   tbits=`sed -n '/^# openssl-trust/{s/^.*=//;p;}' $f`
-   alias=`sed -n '/^# alias=/{s/^.*=//;p;q;}' $f | sed "s/'//g" | sed 's/"//g'`
-   case $tbits in
-     *serverAuth*) openssl x509 -text -in "$f" >> %{classic_tls_bundle} ;;
-   esac
-   targs=""
-   if [ -n "$tbits" ]; then
-      for t in $tbits; do
-         targs="${targs} -addtrust $t"
-      done
-   fi
-   if [ -n "$targs" ]; then
-      echo "legacy default flags $targs for $f" >> info.trust
-      openssl x509 -text -in "$f" -trustout $targs -setalias "$alias" >> %{legacy_default_bundle}
-   fi
- done
+ touch %{legacy_default_bundle}
+ NUM_LEGACY_DEFAULT=`find certs/legacy-default -type f | wc -l`
+ if [ $NUM_LEGACY_DEFAULT -ne 0 ]; then
+     for f in certs/legacy-default/*.crt; do 
+       echo "processing $f"
+       tbits=`sed -n '/^# openssl-trust/{s/^.*=//;p;}' $f`
+       alias=`sed -n '/^# alias=/{s/^.*=//;p;q;}' $f | sed "s/'//g" | sed 's/"//g'`
+       case $tbits in
+         *serverAuth*) openssl x509 -text -in "$f" >> %{classic_tls_bundle} ;;
+       esac
+       targs=""
+       if [ -n "$tbits" ]; then
+          for t in $tbits; do
+             targs="${targs} -addtrust $t"
+          done
+       fi
+       if [ -n "$targs" ]; then
+          echo "legacy default flags $targs for $f" >> info.trust
+          openssl x509 -text -in "$f" -trustout $targs -setalias "$alias" >> %{legacy_default_bundle}
+       fi
+     done
+ fi
 
- for f in certs/legacy-disable/*.crt; do 
-   echo "processing $f"
-   tbits=`sed -n '/^# openssl-trust/{s/^.*=//;p;}' $f`
-   alias=`sed -n '/^# alias=/{s/^.*=//;p;q;}' $f | sed "s/'//g" | sed 's/"//g'`
-   targs=""
-   if [ -n "$tbits" ]; then
-      for t in $tbits; do
-         targs="${targs} -addtrust $t"
-      done
-   fi
-   if [ -n "$targs" ]; then
-      echo "legacy disable flags $targs for $f" >> info.trust
-      openssl x509 -text -in "$f" -trustout $targs -setalias "$alias" >> %{legacy_disable_bundle}
-   fi
- done
+ touch %{legacy_disable_bundle}
+ NUM_LEGACY_DISABLE=`find certs/legacy-disable -type f | wc -l`
+ if [ $NUM_LEGACY_DISABLE -ne 0 ]; then
+     for f in certs/legacy-disable/*.crt; do 
+       echo "processing $f"
+       tbits=`sed -n '/^# openssl-trust/{s/^.*=//;p;}' $f`
+       alias=`sed -n '/^# alias=/{s/^.*=//;p;q;}' $f | sed "s/'//g" | sed 's/"//g'`
+       targs=""
+       if [ -n "$tbits" ]; then
+          for t in $tbits; do
+             targs="${targs} -addtrust $t"
+          done
+       fi
+       if [ -n "$targs" ]; then
+          echo "legacy disable flags $targs for $f" >> info.trust
+          openssl x509 -text -in "$f" -trustout $targs -setalias "$alias" >> %{legacy_disable_bundle}
+       fi
+     done
+ fi
 
  P11FILES=`find certs -name *.p11-kit | wc -l`
  if [ $P11FILES -ne 0 ]; then
@@ -398,7 +406,7 @@ if [ $1 -gt 0 ] ; then
 			if test -L ${lpath}${legacy}; then
 				# is link
 				if test -e ${lpath}${legacy}; then
-					echo "Please ignore warnings about %{lpath}${legacy}.rpmnew, they are expected as the new consolidated configuration feature is enabled" >&2
+					echo "Please ignore warnings about ${lpath}${legacy}.rpmnew, they are expected as the new consolidated configuration feature is enabled" >&2
 				else
 					# link target doesnt exist
 					
@@ -497,7 +505,13 @@ fi
 
 
 %changelog
-* Fri Jan 22 2016 Kai Engert <kaie@redhat.com> - 2015.2.6-65.0.1
+* Tue Nov 01 2016 Kai Engert <kaie@redhat.com> - 2016.2.10-65.4
+- fix a typo in the manual page
+
+* Wed Oct 26 2016 Kai Engert <kaie@redhat.com> - 2016.2.10-65.3
+- Update to CKBI 2.10 from NSS 3.27 with legacy modifications.
+
+* Mon Jan 18 2016 Kai Engert <kaie@redhat.com> - 2015.2.6-65.1
 - Update to CKBI 2.6 from NSS 3.21 with legacy modifications.
 
 * Thu Apr 23 2015 Kai Engert <kaie@redhat.com> - 2015.2.4-65.1
