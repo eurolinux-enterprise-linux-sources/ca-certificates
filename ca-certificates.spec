@@ -35,11 +35,11 @@ Name: ca-certificates
 # to have increasing version numbers. However, the new scheme will work, 
 # because all future versions will start with 2013 or larger.)
 
-Version: 2018.2.22
+Version: 2019.2.32
 # On RHEL 7.x, please keep the release version >= 70
 # When rebasing on Y-Stream (7.y), use 71, 72, 73, ...
 # When rebasing on Z-Stream (7.y.z), use 70.0, 70.1, 70.2, ...
-Release: 70.0%{?dist}
+Release: 76%{?dist}
 License: Public Domain
 
 Group: System Environment/Base
@@ -358,6 +358,36 @@ fi
 
 
 %changelog
+*Fri Jun 21 2019 Bob Relyea <rrelyea@redhat.com> - 2019.2.32-76
+- Update to CKBI 2.32 from NSS 3.44
+-   Removing:
+-   # Certificate "Visa eCommerce Root"
+-   # Certificate "AC Raiz Certicamara S.A."
+-   # Certificate "TC TrustCenter Class 3 CA II"
+-   # Certificate "ComSign CA"
+-   # Certificate "S-TRUST Universal Root CA"
+-   # Certificate "TÜRKTRUST Elektronik Sertifika Hizmet Sağlayıcısı H5"
+-   # Certificate "Certplus Root CA G1"
+-   # Certificate "Certplus Root CA G2"
+-   # Certificate "OpenTrust Root CA G1"
+-   # Certificate "OpenTrust Root CA G2"
+-   # Certificate "OpenTrust Root CA G3"
+-  Adding:
+-   # Certificate "GlobalSign Root CA - R6"
+-   # Certificate "OISTE WISeKey Global Root GC CA"
+-   # Certificate "GTS Root R1"
+-   # Certificate "GTS Root R2"
+-   # Certificate "GTS Root R3"
+-   # Certificate "GTS Root R4"
+-   # Certificate "UCA Global G2 Root"
+-   # Certificate "UCA Extended Validation Root"
+-   # Certificate "Certigna Root CA"
+-   # Certificate "emSign Root CA - G1"
+-   # Certificate "emSign ECC Root CA - G3"
+-   # Certificate "emSign Root CA - C1"
+-   # Certificate "emSign ECC Root CA - C3"
+-   # Certificate "Hongkong Post Root CA 3"
+
 * Wed Mar 14 2018 Kai Engert <kaie@redhat.com> - 2018.2.22-70.0
 - Update to CKBI 2.22 from NSS 3.35
 
